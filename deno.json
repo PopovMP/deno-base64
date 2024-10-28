@@ -1,8 +1,6 @@
 {
   "name": "@popov/base64",
   "license": "MIT",
-  "version": "1.0.2",
-  "exports": {
-    "./mod.ts": "./mod.ts"
-  }
+  "version": "1.0.3",
+  "exports": "./mod.ts"
 }

@@ -53,7 +53,7 @@
  * ```typescript
  * const text: string = base64UrlToBase64("foo--_") //=> "foo++/=="
  * ```
- * 
+ *
  * @module base64
  */
 

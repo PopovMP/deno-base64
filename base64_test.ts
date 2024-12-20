@@ -1,3 +1,6 @@
+import { test } from "node:test";
+import { strictEqual } from "node:assert";
+
 import {
   base64ToBase64Url,
   base64ToString,
@@ -5,7 +8,7 @@ import {
   stringToBase64,
 } from "./base64.ts";
 
-const testsetBase64Url = [
+const testSetBase64Url = [
   ["", ""],
   ["ß", "w58"],
   ["f", "Zg"],
@@ -17,7 +20,7 @@ const testsetBase64Url = [
   [">?>d?ß", "Pj8-ZD_Dnw"],
 ];
 
-const testsetBase64 = [
+const testSetBase64 = [
   ["", ""],
   ["ß", "w58="],
   ["f", "Zg=="],
@@ -28,16 +31,10 @@ const testsetBase64 = [
   ["foobar", "Zm9vYmFy"],
 ] as const;
 
-function assertEquals(actual: string, expected: string, msg?: string): void {
-  if (actual !== expected) {
-    throw new Error(msg || `Expected "${expected}", got "${actual}"`);
-  }
-}
-
-Deno.test("stringToBase64() encodes string to base64", () => {
-  for (const [input, expected] of testsetBase64) {
+test("stringToBase64() encodes string to base64", () => {
+  for (const [input, expected] of testSetBase64) {
     const actual = stringToBase64(input);
-    assertEquals(
+    strictEqual(
       actual,
       expected,
       `Failed to encode "${input}" to "${expected}". Got: "${actual}"`,
@@ -45,10 +42,10 @@ Deno.test("stringToBase64() encodes string to base64", () => {
   }
 });
 
-Deno.test("base64ToString() decodes base64 to string", () => {
-  for (const [expected, input] of testsetBase64) {
+test("base64ToString() decodes base64 to string", () => {
+  for (const [expected, input] of testSetBase64) {
     const actual = base64ToString(input);
-    assertEquals(
+    strictEqual(
       actual,
       expected,
       `Failed to decode "${input}" to "${expected}". Got: "${actual}"`,
@@ -56,11 +53,11 @@ Deno.test("base64ToString() decodes base64 to string", () => {
   }
 });
 
-Deno.test("base64ToBase64Url() encodes string to base64Url", () => {
-  for (const [input, expected] of testsetBase64Url) {
+test("base64ToBase64Url() encodes string to base64Url", () => {
+  for (const [input, expected] of testSetBase64Url) {
     const base64 = stringToBase64(input);
     const actual = base64ToBase64Url(base64);
-    assertEquals(
+    strictEqual(
       actual,
       expected,
       `Failed to encode "${input}" to "${expected}". Got: "${actual}"`,
@@ -68,11 +65,11 @@ Deno.test("base64ToBase64Url() encodes string to base64Url", () => {
   }
 });
 
-Deno.test("base64UrlToBase64() encodes to base64Url string", () => {
-  for (const [expected, input] of testsetBase64Url) {
+test("base64UrlToBase64() encodes to base64Url string", () => {
+  for (const [expected, input] of testSetBase64Url) {
     const base64 = base64UrlToBase64(input);
     const actual = base64ToString(base64);
-    assertEquals(
+    strictEqual(
       actual,
       expected,
       `Failed to decode "${input}" to "${expected}". Got: "${actual}"`,
